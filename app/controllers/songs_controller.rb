@@ -5,10 +5,15 @@ class SongsController < ApplicationController
       if @artist.nil?
         redirect_to artists_path, alert: "Artist not found"
       else
-        @songs = @artist.songs
+        s = @artist.songs
       end
     else
-      @songs = Song.all
+      s = Song.all
+    end
+    if @song_sort_order == "ASC"
+      @songs = s.sort_by{|a| a[:title]}
+    else
+      @songs = s.sort_by{|a| a[:title]}.reverse
     end
   end
 
@@ -25,7 +30,12 @@ class SongsController < ApplicationController
   end
 
   def new
-    @song = Song.new
+    if @allow_create_songs
+      @song = Song.new
+    else
+      redirect_to songs_path, alert: "create song disabled"
+    end
+
   end
 
   def create
@@ -67,4 +77,3 @@ class SongsController < ApplicationController
     params.require(:song).permit(:title, :artist_name)
   end
 end
-
