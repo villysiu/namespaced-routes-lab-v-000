@@ -1,5 +1,5 @@
 class ArtistsController < ApplicationController
-   before_action :set_preferences, only: [:index]
+   before_action :set_preferences, only: [:index, :new]
 
   def index
 
