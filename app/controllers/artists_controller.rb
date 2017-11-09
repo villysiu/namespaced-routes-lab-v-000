@@ -1,6 +1,6 @@
 class ArtistsController < ApplicationController
    before_action :set_preferences, only: [:index]
-  @preference = Preference.first
+
   def index
 
     if @preference && @preference.artist_sort_order
@@ -62,6 +62,6 @@ class ArtistsController < ApplicationController
   end
 
   def set_preferences
-    @preferences = Preference.first
+    @preference = Preference.first
   end
 end
